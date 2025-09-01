@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LabInfra - UFPA</title>
+
+    <!-- Seus estilos (ajuste os caminhos conforme suas pastas) -->
+    <link rel="stylesheet" href="./Inicial/colors.css">
+    <link rel="stylesheet" href="./Pratica/etapas.css">
+
+    <!-- Favicons -->
+    <link rel="icon" href="./Src/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="./Src/favicon.ico" type="image/x-icon">
+
+    <!-- Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cantarell:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cantarell:ital,wght@0,400;0,700;1,400;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+
+    <!-- Biblioteca para renderizar Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<body>
+    <ul class="navigator">
+        <li class="nav1">
+            <a id="openSidebar" href="./Inicial/index.html"><i data-lucide="chevron-left"></i></a>
+        </li>
+        <li class="nav2">Inteligência artificial</li>
+    </ul>
+
+    <section class="inicio">
+        <h4>Descreva o mineral</h4>
+        <textarea id="descricao" class="card-box"
+            placeholder="Ex: Mineral de cor esverdeada, brilho vítreo, dureza alta..."></textarea>
+
+        <div class="gridbutton">
+            <button class="button-ia" id="analisarBtn"><i data-lucide="bot"></i> Analisar</button>
+        </div>
+
+        <div class="resposta-ia">
+            <div id="resposta">Resposta...</div>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script> lucide.createIcons(); </script>
+
+    <script>
+        // Mesmo SYSTEM_PROMPT que você usava, mantido aqui
+        const SYSTEM_PROMPT = `
+# PERSONA E OBJETIVO
+Você é um assistente de IA especialista em geologia, focado na identificação macroscópica de minerais. Sua missão é analisar a descrição de um usuário e sugerir os minerais mais prováveis, agindo como um geólogo experiente auxiliando um estudante.
+
+# REGRAS DE EXECUÇÃO
+1. **Análise Criteriosa:** Analise a descrição do usuário e identifique as propriedades-chave mencionadas (cor, brilho, traço, clivagem, fratura, dureza, hábito, etc.).
+2. **Sugestões Ordenadas:** Sugira de 2 a 4 minerais. Liste-os em ordem decrescente de probabilidade, do mais provável para o menos provável.
+3. **Foco em Minerais Comuns:** Priorize minerais comuns e evite minerais muito raros ou que exijam testes complexos para identificação.
+4. **Baseado em Evidências:** Baseie suas sugestões estritamente nas informações fornecidas. Se uma informação crucial estiver faltando (ex: dureza), mencione como ela ajudaria a diferenciar as sugestões.
+5. **Formato Obrigatório:** A resposta DEVE seguir rigorosamente a estrutura definida na seção "FORMATO DA RESPOSTA".
+
+# FORMATO DA RESPOSTA (Use Markdown)
+
+Com base na sua descrição, os minerais mais prováveis são:
+
+---
+
+### **1. [Nome do Mineral 1]** - ([Fórmula Química])
+* **Por que pode ser este mineral?** [Explique de forma direta e concisa como as características descritas pelo usuário se alinham com este mineral].
+* **Características Principais:**
+  * **Cor:** [Cores comuns do mineral]
+  * **Brilho:** [Tipo de brilho]
+  * **Dureza:** [Valor na escala de Mohs]
+  * **Traço:** [Cor do traço]
+  * **Clivagem/Fratura:** [Descreva a clivagem ou fratura]
+
+*(Repita a estrutura acima para os outros minerais sugeridos.)*
+
+---
+
+### **Próximos Passos para Confirmar**
+* **Teste de Dureza:** [Sugira um teste simples, como "Tente riscar o mineral com um clipe de aço (dureza ~5.5)"].
+* **Verificação do Traço:** [Sugira "Esfregue o mineral em porcelana não esmaltada e observe a cor do pó"].
+
+**Aviso:** A identificação macroscópica é um primeiro passo. Para confirmação definitiva, análises mais avançadas podem ser necessárias.
+`;
+
+        const respostaDiv = document.getElementById("resposta");
+        const descricaoEl = document.getElementById("descricao");
+        const btn = document.getElementById("analisarBtn");
+
+        async function gerarResposta() {
+            const descricao = (descricaoEl.value || "").trim();
+
+            if (descricao.length < 5) {
+                respostaDiv.innerText = "Descrição muito curta, descreva melhor o mineral.";
+                return;
+            }
+
+            respostaDiv.innerText = "Analisando...";
+
+            try {
+                const prompt = `${SYSTEM_PROMPT}\n\nDescrição do usuário: ${descricao}`;
+
+                const resp = await fetch("/api/gemini", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ prompt })
+                });
+
+                const data = await resp.json();
+
+                if (!resp.ok) {
+                    throw new Error(data?.error || "Falha na API");
+                }
+
+                const text = (data?.output || "").trim();
+                if (text) {
+                    respostaDiv.innerHTML = marked.parse(text);
+                } else {
+                    respostaDiv.innerText = "Nenhuma resposta recebida.";
+                }
+            } catch (err) {
+                console.error(err);
+                respostaDiv.innerText = "Erro ao gerar resposta: " + err.message;
+            }
+        }
+
+        btn.addEventListener("click", gerarResposta);
+        // opcional: Ctrl+Enter para enviar
+        descricaoEl.addEventListener("keydown", (e) => {
+            if (e.ctrlKey && e.key === "Enter") gerarResposta();
+        });
+    </script>
+</body>
+
+</html>
