@@ -1,0 +1,502 @@
+:root {
+    /* Light Mode */
+
+    /*
+    hover = #00000010
+    active = #00000020
+    */
+
+
+    --background-light: #eff1f5;
+    --surface-light: #e6e9ef;
+    --text-primary-light: #4c4f69;
+    --text-secondary-light: #6c6f85;
+
+    --hover-sf-light: color-mix(in srgb, var(--surface-light) 95%, black);
+    --active-sf-light: color-mix(in srgb, var(--surface-light) 90%, black);
+
+    --card-box-light: #dce0e8;
+    --button-light: #dce0e8;
+
+    --button-hover-light: color-mix(in srgb, var(--surface-light) 95%, black);
+    --button-active-light: color-mix(in srgb, var(--surface-light) 90%, black);
+
+
+
+    /* Dark Mode */
+    --background-dark: #11111b;
+    --surface-dark: #181825;
+    --text-primary-dark: #cdd6f4;
+    --text-secondary-dark: #a6adc8;
+
+    --hover-sf-dark: color-mix(in srgb, var(--surface-dark) 95%, white);
+    --active-sf-dark: color-mix(in srgb, var(--surface-dark) 90%, white);
+
+    --button-dark: #1e1e2e;
+    --card-box-dark: #1e1e2e;
+
+    --button-hover-dark: color-mix(in srgb, var(--button-dark) 80%, white);
+    --button-active-dark: color-mix(in srgb, var(--button-dark) 60%, white);
+
+
+
+
+
+    /* Cores Gerais */
+    --color-blue-primary: #1e66f5;
+    --color-blue-primary-dark: #89b4fa;
+    --color-blue-hover: color-mix(in srgb, var(--color-blue-primary) 80%, black);
+    --color-blue-active: color-mix(in srgb, var(--color-blue-primary) 60%, black);
+    --color-blue-find: color-mix(in srgb, var(--color-blue-primary) 30%, black);
+}
+
+/* Light Mode */
+.light-mode {
+    background: var(--background-light);
+    color: var(--text-primary-light);
+}
+
+.light-mode .navigator,
+.light-mode #sidebar,
+.light-mode .navigator-sidebar {
+    background-color: var(--surface-light);
+}
+
+.light-mode a.button {
+    background-color: var(--button-light);
+    color: var(--text-primary-light);
+}
+
+.light-mode a.button:hover {
+    background: var(--button-hover-light);
+}
+
+.light-mode a.button:active {
+    background: var(--button-active-light);
+}
+
+.light-mode .sidebar-icons li {
+    color: var(--text-primary-light);
+}
+
+
+.light-mode .sidebar-icons li a:hover,
+.light-mode #sidebar #closeSidebar:hover,
+.light-mode #openSidebar:hover,
+.light-mode #FindSidebar:hover {
+    background: var(--hover-sf-light);
+}
+
+.light-mode .sidebar-icons li a:active,
+.light-mode #sidebar #closeSidebar:active,
+.light-mode #openSidebar:active,
+.light-mode #FindSidebar:active {
+    background: var(--active-sf-light);
+}
+
+.light-mode .card-box {
+    background: var(--card-box-light);
+}
+
+.light-mode .sidebar-icons li a {
+    color: var(--text-secondary-light);
+}
+
+.light-mode input {
+    color: var(--text-secondary-light);
+}
+
+/* Dark Mode */
+.dark-mode {
+    background: var(--background-dark);
+    color: var(--text-primary-dark);
+}
+
+.dark-mode .navigator,
+.dark-mode #sidebar,
+.dark-mode .navigator-sidebar {
+    background-color: var(--surface-dark);
+}
+
+.dark-mode a.button {
+    background-color: var(--button-dark);
+    color: var(--text-primary-dark);
+}
+
+.dark-mode a.button:hover {
+    background: var(--button-hover-dark);
+}
+
+.dark-mode a.button:active {
+    background: var(--button-active-dark);
+}
+
+.dark-mode .sidebar-icons li a:hover,
+.dark-mode #sidebar #closeSidebar:hover,
+.dark-mode #openSidebar:hover,
+.dark-mode #FindSidebar:hover {
+    background: var(--hover-sf-dark);
+}
+
+.dark-mode .sidebar-icons li a {
+    color: var(--text-secondary-dark);
+}
+
+
+.dark-mode input {
+    color: var(--text-secondary-dark);
+}
+
+
+.light-mode form {
+    background: var(--hover-sf-light);
+}
+
+.dark-mode form {
+    background: var(--hover-sf-dark);
+}
+
+
+
+.dark-mode .sidebar-icons li a:active,
+.dark-mode #sidebar #closeSidebar:active,
+.dark-mode #openSidebar:active,
+.dark-mode form:active {
+    background: var(--active-sf-dark);
+}
+
+
+.dark-mode form:focus-within {
+    border: 2px solid var(--color-blue-primary-dark);
+}
+
+
+.light-mode form:focus-within {
+    border: 2px solid var(--color-blue-primary);
+}
+
+
+
+
+
+.dark-mode .card-box {
+    background: var(--card-box-dark);
+}
+
+
+
+.light-mode a.button-sugest {
+    color: #1e66f5;
+    background-color: color-mix(in srgb, #1e66f5 30%, white);
+}
+
+.light-mode a.button-sugest:hover {
+    background-color: color-mix(in srgb, #1e66f5 40%, white);
+}
+
+.light-mode a.button-sugest:active {
+    background-color: color-mix(in srgb, #1e66f5 60%, white);
+}
+
+
+
+
+.dark-mode a.button-sugest {
+    color: #89b4fa;
+    background-color: color-mix(in srgb, #89b4fa 30%, black);
+}
+
+.dark-mode a.button-sugest:hover {
+    background-color: color-mix(in srgb, #89b4fa 40%, black);
+}
+
+.dark-mode a.button-sugest:active {
+    background-color: color-mix(in srgb, #89b4fa 60%, black);
+}
+
+
+
+
+
+.dark-mode .inicio p a {
+    color: var(--color-blue-primary-dark);
+
+}
+
+
+
+/* {
+    color: var(--color-blue-primary);
+    
+}
+
+*/
+
+
+
+
+.light-mode a.button-sim {
+    color: #40a02b;
+    background-color: color-mix(in srgb, #40a02b 30%, white);
+}
+
+.light-mode a.button-sim:hover {
+    background-color: color-mix(in srgb, #40a02b 40%, white);
+}
+
+.light-mode a.button-sim:active {
+    background-color: color-mix(in srgb, #40a02b 60%, white);
+}
+
+
+.light-mode a.button-nao {
+    color: #d20f39;
+    background-color: color-mix(in srgb, #d20f39 30%, white);
+
+}
+
+.light-mode a.button-nao:hover {
+    background-color: color-mix(in srgb, #d20f39 40%, white);
+}
+
+input .light-mode a.button-nao:active {
+    background-color: color-mix(in srgb, #d20f39 60%, white);
+}
+
+
+
+
+
+
+
+.dark-mode a.button-sim {
+    color: #a6e3a1;
+    background-color: color-mix(in srgb, #a6e3a1 30%, black);
+}
+
+.dark-mode a.button-sim:hover {
+    background-color: color-mix(in srgb, #a6e3a1 40%, black);
+}
+
+.dark-mode a.button-sim:active {
+    background-color: color-mix(in srgb, #a6e3a1 60%, black);
+}
+
+
+.dark-mode a.button-nao {
+    color: #f38ba8;
+    background-color: color-mix(in srgb, #f38ba8 30%, black);
+}
+
+.dark-mode a.button-nao:hover {
+    background-color: color-mix(in srgb, #f38ba8 40%, black);
+}
+
+.dark-mode a.button-nao:active {
+    background-color: color-mix(in srgb, #f38ba8 60%, black);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.light-mode a.button-ia {
+    color: #1e66f5;
+    background-color: color-mix(in srgb, #1e66f5 30%, white);
+}
+
+.light-mode a.button-ia:hover {
+    background-color: color-mix(in srgb, #1e66f5 40%, white);
+}
+
+.light-mode a.button-ia:active {
+    background-color: color-mix(in srgb, #1e66f5 60%, white);
+}
+
+
+.dark-mode a.button-ia {
+    color: #d20f39;
+    background-color: color-mix(in srgb, #d20f39 30%, white);
+
+}
+
+.dark-mode a.button-ia:hover {
+    background-color: color-mix(in srgb, #d20f39 40%, white);
+}
+
+input .dark-mode a.button-ia:active {
+    background-color: color-mix(in srgb, #d20f39 60%, white);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*colous*/
+
+/*
+button = #ffffff + color 3; #XXXXXX B0 (opacity)
+
+blue = #73aaec
+yellow = #f9e06e
+red = #e96167
+green = #72dfa3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* tabelas */
+
+
+.light-mode tr:nth-child(odd) {
+    background-color: var(--button-hover-light);
+}
+
+.light-mode tr:nth-child(even) {
+    background-color: var(--button-light);
+}
+
+th {
+    background-color: var(--color-blue-primary);
+    color: white;
+
+}
+
+.light-mode th,
+.light-mode td {
+    border: 1px solid #00000070;
+}
+
+
+
+
+
+.dark-mode tr:nth-child(odd) {
+    background-color: var(--button-hover-dark);
+}
+
+.dark-mode tr:nth-child(even) {
+    background-color: var(--button-dark);
+}
+
+.dark-mode th {
+    background-color: var(--color-blue-primary);
+}
+
+.dark-mode th,
+.dark-mode td {
+    border: 1px solid var(--text-secondary-dark);
+}
+
+
+
+
+/*----------------------------------------------*/
+
+
+#leftimg:hover,
+#rightimg:hover {
+    background-color: #00000040;
+}
+
+#leftimg:active,
+#rightimg:active {
+    background-color: #00000070;
+
+
+}
+
+
+#leftimg,
+#rightimg {
+    color: #FFFFFF !important;
+
+
+}
+
+
+
+
+.light-mode .dot {
+    background-color: var(--button-light);
+}
+
+.light-mode .active {
+    background-color: var(--text-primary-light);
+}
+
+.dark-mode .dot {
+    background-color: var(--button-dark);
+}
+
+.dark-mode .active {
+    background-color: var(--text-primary-dark);
+}
+
+
+
+
+
+
+
+
+
+
+.light-mode button {
+    color: var(--text-secondary-light);
+}
+
+.dark-mode button {
+    color: var(--text-secondary-dark);
+}
+
+.light-mode button {
+    color: var(--text-secondary-light);
+}
+
+.dark-mode button {
+    color: var(--text-secondary-dark);
+}
+
+
+
+
+
+.light-mode button:hover {
+    color: var(--text-primary-light);
+}
+
+.dark-mode button:hover {
+    color: var(--text-primary-dark);
+}
