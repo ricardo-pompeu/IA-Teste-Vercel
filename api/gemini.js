@@ -17,7 +17,7 @@ export default async function handler(req) {
             return json({ error: "GOOGLE_API_KEY não configurada no Vercel" }, 500);
         }
 
-        const model = "gemini-1.5-flash"; // troque para outro modelo se quiser
+        const model = "gemini-2.5-flash"; // troque para outro modelo se quiser
         const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
         const payload = {
